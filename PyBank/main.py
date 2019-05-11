@@ -1,5 +1,3 @@
-# Reading / Processing CSV
-# Dependencies
 import csv
 import os
 
@@ -14,30 +12,29 @@ with open(budget_data) as budget_data:
     # Read the header row
     header = next(reader)    
     
-    # Initialize a variable called total_months (count of all month values in the CSV)
-    total_months = 0 
+    # Initialize a variable called total_months (the count of all month values in the CSV)
+    total_months = 1
     
-    # Initialize a variable called net_total (sum of all postive/negative 'profit/loss' values in the CSV)
-    net_total = 0
-    
-    # First row advances reader by one line. Otherwise % change comp with 0, mathematical error. 
+    # First row advances the reader by one line. Without this, the first % change calculation will have 0 as divisor, generating an error. 
     first_row = next(reader)
     
-    # Initialize variable for previous row.
+    # Initialize a variable called net_total (the sum of all postive/negative 'profit/loss' values in the CSV)
+    net_total = int(first_row[1])
+
+    # Initialize a variable for "previous row".
     previous_row = int(first_row[1])
 
     # Define list called Net Change list
     net_change_list = []
     
-    
-    #Count total number of months in the data sets. Also the unique values in first column after the header. NOTE: row[1] is the 'Profit/Loss' value, and it is a STRING, thus needing a conversion. int() converts whatever is passed into to an integer
+    # Calculate net total of profits and losses. Note: row[1] is the 'Profit/Loss' value, and it is a STRING, thus needing a conversion. int() converts whatever is passed into to an integer
     for row in reader:
-        total_months = total_months + 1
-    
-    #Calculate net total of profits and losses
         net_total = net_total + int(row[1]) 
     
-    #Calculate changes in profits/losses over period. First track the net change. Keep moving prev row forward.
+    # Count total number of months in the data sets. Also the unique values in first column after the header. 
+        total_months = total_months + 1
+
+    # Calculate changes in profits/losses over period. First track the net change. Keep moving "previous row" forward.
         net_change = int(row[1]) - previous_row
         previous_row = int(row[1])
         net_change_list = net_change_list + [net_change]

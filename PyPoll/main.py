@@ -66,4 +66,4 @@ print(f"Winner: {unique_candidate_list[index_max]}" )
 print("-------------------")
 
 # Write the output .txt file
-f= open("budget_analysis.txt","w+")
+f= open("election_analysis.txt","w+")
