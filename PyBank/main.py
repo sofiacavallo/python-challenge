@@ -42,14 +42,39 @@ with open(budget_data) as budget_data:
 # Calculate average percent change
     averageChange = sum(net_change_list) / len(net_change_list)
 
+# From your net_change_list, find the largest value and date of the largest value. Same for smallest value and month.
+    greatest_increase = max(net_change_list)
+    greatest_decrease = min(net_change_list)
+
 # Print out the data points of interest as the final budget analysis
     print("Financial Analysis")
     print("-------------------")
     print("Total Months: ", {total_months})
     print("Total: ", {net_total})
     print("Average Change: ", {averageChange})
-    print("Greatest Increase in Profits: ", {max(net_change_list)})
-    print("Greatest Decrease in Profits: ", {min(net_change_list)})
+    print("Greatest Increase in Profits: ", {greatest_increase})
+    print("Greatest Decrease in Profits: ", {greatest_decrease})
 
-# Write the output .txt file
-f= open("budget_analysis.txt","w+")
+# Specify the file to write to
+output_path = os.path.join("budget_analysis.txt")
+
+# Open the file using "write" mode. Specify the variable to hold the contents
+with open(output_path, 'w', newline='') as txtfile:
+
+    # Initialize csv.writer
+    txtwriter = csv.writer(txtfile, delimiter=' ', escapechar = " ", quoting = csv.QUOTE_NONE)
+
+    # Write the first line
+    txtwriter.writerow(["Financial Analysis"])
+    # Write the second line
+    txtwriter.writerow(["-------------------"])
+    # Write the third line
+    txtwriter.writerow(["Total Months: ", {total_months}])
+    # Write the fourth line
+    txtwriter.writerow(["Total: ", {net_total}])
+    # Write the fifth line
+    txtwriter.writerow(["Average Change: ", {averageChange}])
+    # Write the sixth line
+    txtwriter.writerow(["Greatest Increase in Profits: ", {greatest_increase}])
+    # Write the seventh line
+    txtwriter.writerow(["Greatest Decrease in Profits: ", {greatest_decrease}])

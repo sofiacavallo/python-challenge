@@ -65,5 +65,25 @@ print("-------------------")
 print(f"Winner: {unique_candidate_list[index_max]}" )
 print("-------------------")
 
-# Write the output .txt file
-f= open("election_analysis.txt","w+")
+# Specify the file to write to
+output_path = os.path.join("election_analysis.txt")
+
+# Open the file using "write" mode. Specify the variable to hold the contents
+with open(output_path, 'w', newline='') as txtfile:
+
+    # Initialize csv.writer
+    txtwriter = csv.writer(txtfile, delimiter=' ', escapechar = " ", quoting = csv.QUOTE_NONE)
+
+    # Write the first line
+    txtwriter.writerow(["Election Results"])
+    # Write the second line
+    txtwriter.writerow(["-------------------"])
+    txtwriter.writerow(["Total Votes: ", total_votes])
+    txtwriter.writerow(["-------------------"])
+    txtwriter.writerow([f"Khan: {p_khan:.2%} {total_khan}"])
+    txtwriter.writerow([f"Correy: {p_correy:.2%} {total_correy}"])
+    txtwriter.writerow([f"Li: {p_li:.2%} {total_li}"])
+    txtwriter.writerow([f"O'Tooley: {p_otooley:.2%} {total_otooley}"])
+    txtwriter.writerow(["-------------------"])
+    txtwriter.writerow([f"Winner: {unique_candidate_list[index_max]}"])
+    txtwriter.writerow(["-------------------"])
